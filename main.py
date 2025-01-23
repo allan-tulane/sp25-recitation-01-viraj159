@@ -35,6 +35,19 @@ def _binary_search(mylist, key, left, right):
 	### TODO
 
 	###
+	if left > right:
+		return -1
+
+	mid = (left + right) // 2
+	
+	if mylist[mid] == key:
+		return mid
+
+	elif key < mylist[mid]:
+		return _binary_search(mylist, key, left, mid - 1)
+
+	else:
+		return _binary_search(mylist, key, mid + 1, right)
 
 
 
