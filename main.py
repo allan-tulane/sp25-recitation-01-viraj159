@@ -7,9 +7,10 @@ import tabulate
 import time
 ###
 
+
 def linear_search(mylist, key):
 	""" done. """
-	for i,v in enumerate(mylist):
+	for i, v in enumerate(mylist):
 		if v == key:
 			return i
 	return -1
@@ -17,7 +18,8 @@ def linear_search(mylist, key):
 
 def binary_search(mylist, key):
 	""" done. """
-	return _binary_search(mylist, key, 0, len(mylist)-1)
+	return _binary_search(mylist, key, 0, len(mylist) - 1)
+
 
 def _binary_search(mylist, key, left, right):
 	"""
@@ -32,14 +34,11 @@ def _binary_search(mylist, key, left, right):
 	Returns:
 	  index of key in mylist, or -1 if not present.
 	"""
-	### TODO
-
-	###
 	if left > right:
 		return -1
 
 	mid = (left + right) // 2
-	
+
 	if mylist[mid] == key:
 		return mid
 
@@ -48,8 +47,6 @@ def _binary_search(mylist, key, left, right):
 
 	else:
 		return _binary_search(mylist, key, mid + 1, right)
-
-
 
 
 def time_search(search_fn, mylist, key):
@@ -70,9 +67,12 @@ def time_search(search_fn, mylist, key):
 	  the number of milliseconds it takes to run this
 	  search function on this input.
 	"""
-	### TODO
+	start_time = time.time()
+	search_fn(mylist, key)
+	end_time = time.time()
+	run_time = (end_time - start_time) * 1000
+	return run_time
 
-	###
 
 def compare_search(sizes=[1e1, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7]):
 	"""
@@ -89,14 +89,21 @@ def compare_search(sizes=[1e1, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7]):
 	  indicating the number of milliseconds it takes
 	  for each method to run on each value of n
 	"""
-	### TODO
+	results = []
+	for size in sizes:
+		n = int(size)
+		mylist = list(range(n))
+		key = -1
+		linear_time = time_search(linear_search, mylist, key)
+		binary_time = time_search(binary_search, mylist, key)
+		results.append((n, linear_time, binary_time))
+	return results
 
-	###
 
 def print_results(results):
 	""" done """
-	print(tabulate.tabulate(results,
-							headers=['n', 'linear', 'binary'],
-							floatfmt=".3f",
-							tablefmt="github"))
-
+	print(
+	    tabulate.tabulate(results,
+	                      headers=['n', 'linear', 'binary'],
+	                      floatfmt=".3f",
+	                      tablefmt="github"))
